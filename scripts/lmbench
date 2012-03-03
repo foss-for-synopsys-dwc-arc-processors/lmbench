@@ -60,6 +60,19 @@ then	if [ "X$DISKS" != X ]
 	MP=Y
 fi
 
+if [ -f /disk/readelf ]
+then
+	bbox_type=`/disk/readelf -d /bin/busybox | grep PLTGOT | wc -l`
+else
+	bbox_type=9
+fi
+
+case $bbox_type in
+    1)	bbox_str="Dynamic";;
+    0)	bbox_str="static";;
+    9)	bbox_str="Objdump not found";;
+esac
+
 # Figure out as much stuff as we can about this system.
 # Sure would be nice if everyone had SGI's "hinv".
 echo \[lmbench3.0 results for `uname -a`] 1>&2
@@ -98,6 +111,7 @@ echo \[PROCESSOR: `uname -p`] 1>&2
 echo \[MACHINE: `uname -m`] 1>&2
 echo \[RELEASE: `uname -r`] 1>&2
 echo \[VERSION: `uname -v`] 1>&2
+echo \[BUSYBOX LINKAGE: : ${bbox_str} ] 1>&2
 
 echo \[`date`] 1>&2
 echo \[`uptime`] 1>&2
@@ -481,5 +495,18 @@ fi
 date >> ${OUTPUT}
 echo '' 1>&2
 echo \[`date`] 1>&2
+
+if [ -f "/bin/zcat" -a -f "/proc/config.gz" ]
+then
+	echo "########################################" 1>&2
+	echo "Kernel .config used for above test" 1>&2
+	echo "########################################" 1>&2
+	zcat /proc/config.gz 1>&2
+fi
+
+echo "########################################" 1>&2
+echo "Kernel bootup logs (dmesg)" 1>&2
+echo "########################################" 1>&2
+dmesg 1>&2
 
 exit 0

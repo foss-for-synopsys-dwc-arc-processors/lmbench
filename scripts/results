@@ -17,11 +17,22 @@ fi
 if [ ! -d ../$RESULTS ]
 then	mkdir -p ../$RESULTS
 fi
-RESULTS=$BASE.$EXT
-while [ -f $RESULTS ]
-do      EXT=`expr $EXT + 1`
+
+#[ARC changes] Allow log file name be passed from cmd line
+if [ $# -eq 0 ] ; then
 	RESULTS=$BASE.$EXT
-done
+	while [ -f $RESULTS ]
+	do      EXT=`expr $EXT + 1`
+		RESULTS=$BASE.$EXT
+	done
+else
+	RESULTS=../results/$OS/$1
+fi
+
+#[ARC changes] Warn if file already existed
+if [ -e $RESULTS ] ; then
+    echo "Over-writing the output file"
+fi
 
 cd ../bin/$OS 
 PATH=.:${PATH}; export PATH
