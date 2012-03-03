@@ -15,7 +15,7 @@ char	*id = "$Id$\n";
 #define	CHK(x)	if ((x) == -1) { perror("x"); exit(1); }
 
 #ifndef	TOO_LONG
-#define	TOO_LONG	10	/* usecs */
+#define	TOO_LONG	100	/* usecs */
 #endif
 
 int	alarm_triggered = 0;
