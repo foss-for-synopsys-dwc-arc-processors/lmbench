@@ -60,18 +60,13 @@ then	if [ "X$DISKS" != X ]
 	MP=Y
 fi
 
-if [ -f /disk/readelf ]
+NUM=`cat /proc/1/maps | grep ld-uClibc | wc -l`
+if [ $NUM -eq 0 ]
 then
-	bbox_type=`/disk/readelf -d /bin/busybox | grep PLTGOT | wc -l`
+	bbox_str="static"
 else
-	bbox_type=9
+	bbox_str="Dynamic"
 fi
-
-case $bbox_type in
-    1)	bbox_str="Dynamic";;
-    0)	bbox_str="static";;
-    9)	bbox_str="Objdump not found";;
-esac
 
 # Figure out as much stuff as we can about this system.
 # Sure would be nice if everyone had SGI's "hinv".
