@@ -473,18 +473,18 @@ sub print_basic
 	}
 	print<<EOF;
 Basic system parameters
-------------------------------------------------------------------------------
-Host                 OS Description              Mhz  tlb  cache  mem   scal
-                                                     pages line   par   load
-                                                           bytes  
---------- ------------- ----------------------- ---- ----- ----- ------ ----
+--------------------------------------------------------------------------------------
+        Host                 OS Description                             Mhz  tlb  cache  mem   scal
+                                                                             pages line   par   load
+                                                                                   bytes
+----------------- ------------- --------------------------------------- ---- ----- ----- ------ ----
 EOF
 
 	for ($i = 0; $i <= $#uname; $i++) {
 		if (&resultsq($i, $i, ( 'tlb', 'line_size', 'mem_load_par' )) <= 0) {
 			next; 
 		}
-	        printf "%-9.9s %13.13s %23.23s ", 
+	        printf "%-17.17s %-13.13s %-39.39s ",
 			$host[$i], &getos($uname[$i]), $file[$i];
 		printf "%4.4s %5.5s %5.5s %6.6s %4.4s\n",
 			&inum($misc_mhz[$i], 4),
@@ -534,7 +534,7 @@ EOF
 		} else {
 			$tmp = ($lat_read[$i] + $lat_write[$i]) / 2;
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf "%4.0f %4.4s %4.4s %4.4s %4.4s %4.4s %4.4s %4.4s %4.4s %4.4s %4.4s\n",
 			$misc_mhz[$i],
 			&num($lat_syscall[$i], 4),
@@ -578,7 +578,7 @@ EOF
 		if ($load[$i] > 1) {
 			next;
 		}
-		printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+		printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf "%6.6s %6.6s %6.6s %6.6s %6.6s\n",
 			&scale_num($integer_bit[$i], 6, $load[$i]),
 			&scale_num($integer_add[$i], 6, $load[$i]),
@@ -616,7 +616,7 @@ EOF
 		if ($load[$i] > 1) {
 			next;
 		}
-        	printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+		printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf " %5.5s %6.6s %6.6s %6.6s %6.6s\n",
 			&scale_num($int64_bit[$i], 6, $load[$i]),
 			&scale_num($int64_add[$i], 6, $load[$i]),
@@ -653,7 +653,7 @@ EOF
 		if ($load[$i] > 1) {
 			next;
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf "%6.6s %6.6s %6.6s %6.6s\n",
 			&scale_num($float_add[$i], 6, $load[$i]),
 			&scale_num($float_mul[$i], 6, $load[$i]),
@@ -689,7 +689,7 @@ EOF
 		if ($load[$i] > 1) {
 			next;
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf "%6.6s %6.6s %6.6s %6.6s\n",
 			&scale_num($double_add[$i], 6, $load[$i]),
 			&scale_num($double_mul[$i], 6, $load[$i]),
@@ -725,7 +725,7 @@ EOF
 				'lat_ctx64_16' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		printf "%6.6s %6.6s %6.6s %6.6s %6.6s %7.7s %7.7s\n",
 			&num($lat_ctx0_2[$i], 6),
 			&num($lat_ctx16_2[$i], 6),
@@ -766,7 +766,7 @@ EOF
 				'lat_tcp_connect_local' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
         	printf "%5.5s %5.5s %4.4s %5.5s %5.5s %5.5s %5.5s %4.4s\n",
 			&num($lat_ctx0_2[$i], 5),
 			&num($lat_pipe[$i], 5),
@@ -806,7 +806,7 @@ EOF
 				'lat_tcp_connect_remote' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 	        printf "%5.5s %5.5s %5.5s %5.5s %4.4s\n",
 			&num($lat_udp_remote[$i], 5),
 			&num($lat_rpc_udp_remote[$i], 5),
@@ -843,7 +843,7 @@ EOF
 				'lat_pagefault' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 		$c0k = $fs_create_0k[$i] <= 0 ? -1 : $M / $fs_create_0k[$i];
 		$c10k = $fs_create_10k[$i] <= 0 ? -1 : $M / $fs_create_10k[$i];
 		$d0k = $fs_delete_0k[$i] <= 0 ? -1 : $M / $fs_delete_0k[$i];
@@ -887,7 +887,7 @@ EOF
 				'bw_mem_rdsum' , 'bw_mem_wr' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s ", $host[$i], &getos($uname[$i]);
+	        printf "%-9.9s %-13.13s ", $host[$i], &getos($uname[$i]);
 	        printf "%4.4s %4.4s %4.4s %6.6s %6.6s %6.6s %6.6s %4.4s %5.5s\n",
 			&num($bw_pipe[$i], 4),
 			&num($bw_unix[$i], 4),
@@ -922,7 +922,7 @@ EOF
 		if (&resultsq($i, $i, ( 'lat_l1', 'lat_l2', 'lat_mem' )) <= 0) { 
 			next; 
 		}
-	        printf "%-9.9s %13.13s  %4d",
+	        printf "%-9.9s %-13.13s  %4d",
 		    $host[$i], &getos($uname[$i]), $misc_mhz[$i];
 		$msg = &check_caches;
 		if ($lat_l1[$i] < 0) {
