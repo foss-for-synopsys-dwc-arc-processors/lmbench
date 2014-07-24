@@ -68,6 +68,7 @@ else
 	bbox_str="Dynamic"
 fi
 
+tmp_folder=`ls -ld /tmp*`
 # Figure out as much stuff as we can about this system.
 # Sure would be nice if everyone had SGI's "hinv".
 echo \[lmbench3.0 results for `uname -a`] 1>&2
@@ -82,6 +83,7 @@ echo \[FAST: ${FAST}] 1>&2
 echo \[FASTMEM: ${FASTMEM}] 1>&2
 echo \[FILE: ${FILE}] 1>&2
 echo \[FSDIR: ${FSDIR}] 1>&2
+echo \[TMP-ON-ROOTFS: ${tmp_folder}] 1>&2
 echo \[HALF: ${HALF}] 1>&2
 echo \[INFO: ${INFO}] 1>&2
 echo \[LINE_SIZE: ${LINE_SIZE}] 1>&2
