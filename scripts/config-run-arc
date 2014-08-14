@@ -201,43 +201,9 @@ EOF
 ############################################################################
 # /usr/tmp?
 ############################################################################
-RFS=`mount | egrep -v "(none|sysfs|debugfs|devtmpfs)"`
-echo $L
-AGAIN=Y
-while [ $AGAIN = Y ]
-do
-	cat<<EOF;
+FSDIR=/tmp
+FILE=$FSDIR/XXX
 
-We need a place to store a $MB Mbyte file as well as create and delete a
-large number of small files.  We default to /usr/tmp.  If /usr/tmp is a
-memory resident file system (i.e., tmpfs), pick a different place.
-Please specify a directory that has enough space and is a local file
-system.
-
-Your current mounts are:
-
-$RFS
-
-EOF
-	DEFAULTFSDIR=/tmp
-	for t in /tmp /sdcard/tmp ; do
-		if [ -d $t -a -w $t ]
-		then	DEFAULTFSDIR=$t
-			break
-		fi
-	done
-	echo $ECHON "FSDIR [default $DEFAULTFSDIR]: $ECHOC"
-	read FSDIR
-	if [ X$FSDIR = X ]
-	then	FSDIR=$DEFAULTFSDIR
-	else	mkdir -p $FSDIR 2>/dev/null
-	fi
-	if [ -d $FSDIR -a -w $FSDIR ]
-	then	AGAIN=N
-		FILE=$FSDIR/XXX
-	else	echo $FSDIR is not a directory or is not writable
-	fi
-done
 
 ############################################################################
 # status output?
