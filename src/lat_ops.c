@@ -200,7 +200,7 @@ do_int64_add(iter_t iterations, void* cookie)
 	use_int((int)a+(int)b);
 }
 
-void
+void __attribute__ ((optimize("O0")))
 do_int64_mul(iter_t iterations, void* cookie)
 {
 	struct _state *pState = (struct _state*)cookie;
