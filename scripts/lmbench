@@ -60,6 +60,14 @@ then	if [ "X$DISKS" != X ]
 	MP=Y
 fi
 
+NUM=`cat /proc/1/maps | grep ld-uClibc | wc -l`
+if [ $NUM -eq 0 ]
+then
+	bbox_str="static"
+else
+	bbox_str="Dynamic"
+fi
+
 # Figure out as much stuff as we can about this system.
 # Sure would be nice if everyone had SGI's "hinv".
 echo \[lmbench3.0 results for `uname -a`] 1>&2
@@ -98,6 +106,7 @@ echo \[PROCESSOR: `uname -p`] 1>&2
 echo \[MACHINE: `uname -m`] 1>&2
 echo \[RELEASE: `uname -r`] 1>&2
 echo \[VERSION: `uname -v`] 1>&2
+echo \[BUSYBOX LINKAGE: : ${bbox_str} ] 1>&2
 
 echo \[`date`] 1>&2
 echo \[`uptime`] 1>&2
