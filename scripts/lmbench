@@ -482,4 +482,17 @@ date >> ${OUTPUT}
 echo '' 1>&2
 echo \[`date`] 1>&2
 
+if [ -f "/bin/zcat" -a -f "/proc/config.gz" ]
+then
+	echo "########################################" 1>&2
+	echo "Kernel .config used for above test" 1>&2
+	echo "########################################" 1>&2
+	zcat /proc/config.gz 1>&2
+fi
+
+echo "########################################" 1>&2
+echo "Kernel bootup logs (dmesg)" 1>&2
+echo "########################################" 1>&2
+dmesg 1>&2
+
 exit 0
