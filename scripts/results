@@ -17,11 +17,20 @@ fi
 if [ ! -d ../$RESULTS ]
 then	mkdir -p ../$RESULTS
 fi
-RESULTS=$BASE.$EXT
-while [ -f $RESULTS ]
-do      EXT=`expr $EXT + 1`
+
+if [ $# -eq 0 ] ; then
 	RESULTS=$BASE.$EXT
-done
+	while [ -f $RESULTS ]
+	do      EXT=`expr $EXT + 1`
+		RESULTS=$BASE.$EXT
+	done
+else
+	RESULTS=../results/$OS/$1
+fi
+
+if [ -e $RESULTS ] ; then
+    echo "Over-writing the output file"
+fi
 
 cd ../bin/$OS 
 PATH=.:${PATH}; export PATH
