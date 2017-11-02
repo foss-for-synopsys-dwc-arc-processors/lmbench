@@ -34,7 +34,7 @@ udp_server(u_long prog, int rdwr)
 		perror("bind");
 		exit(2);
 	}
-#ifndef	NO_PORTMAPPER
+#ifdef PORTMAP
 	(void)pmap_unset(prog, (u_long)1);
 	if (!pmap_set(prog, (u_long)1, (u_long)IPPROTO_UDP,
 	    (unsigned short)sockport(sock))) {
@@ -51,7 +51,9 @@ udp_server(u_long prog, int rdwr)
 void
 udp_done(u_long prog)
 {
+#ifdef PORTMAP
 	(void)pmap_unset(prog, (u_long)1);
+#endif
 }
 
 /*
@@ -80,7 +82,7 @@ udp_connect(char *host, u_long prog, int rdwr)
 	bzero((void *) &sin, sizeof(sin));
 	sin.sin_family = AF_INET;
 	bcopy((void*)h->h_addr, (void *) &sin.sin_addr, h->h_length);
-#ifdef	NO_PORTMAPPER
+#ifndef	PORTMAP
 	sin.sin_port = htons(prog);
 #else
 	port = pmap_getport(&sin, prog, (u_long)1, IPPROTO_UDP);

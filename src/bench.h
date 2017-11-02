@@ -35,15 +35,18 @@ typedef unsigned char bool_t;
 #include        <sys/socket.h>
 #include        <sys/un.h>
 #include        <sys/resource.h>
-#define PORTMAP
+#ifdef PORTMAP
 #include	<rpc/rpc.h>
 #endif
+#endif
+#ifdef PORTMAP
 #ifdef HAVE_pmap_clnt_h
 #include	<rpc/pmap_clnt.h>
 #endif
 #include	<rpc/types.h>
 #ifdef HAVE_pmap_clnt_h
 #include	<rpc/pmap_clnt.h>
+#endif
 #endif
 
 #include 	<stdarg.h>

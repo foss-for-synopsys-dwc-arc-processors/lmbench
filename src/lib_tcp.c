@@ -45,12 +45,14 @@ tcp_server(int prog, int rdwr)
 #ifdef	LIBTCP_VERBOSE
 		fprintf(stderr, "Server port %d\n", sockport(sock));
 #endif
+#ifdef PORTMAP
 		(void)pmap_unset((u_long)prog, (u_long)1);
 		if (!pmap_set((u_long)prog, (u_long)1, (u_long)IPPROTO_TCP,
 		    (unsigned short)sockport(sock))) {
 			perror("pmap_set");
 			exit(5);
 		}
+#endif
 	}
 	return (sock);
 }
@@ -62,7 +64,9 @@ int
 tcp_done(int prog)
 {
 	if (prog > 0) {
+#ifdef PORTMAP
 		pmap_unset((u_long)prog, (u_long)1);
+#endif
 	}
 	return (0);
 }
@@ -161,12 +165,14 @@ tcp_connect(char *host, int prog, int rdwr)
 		s.sin_family = AF_INET;
 		bcopy((void*)h->h_addr, (void *)&s.sin_addr, h->h_length);
 		if (prog > 0) {
+#ifdef PORTMAP
 			save_port = pmap_getport(&s, prog,
 			    (u_long)1, IPPROTO_TCP);
 			if (!save_port) {
 				perror("lib TCP: No port found");
 				exit(3);
 			}
+#endif
 #ifdef	LIBTCP_VERBOSE
 			fprintf(stderr, "Server port %d\n", save_port);
 #endif

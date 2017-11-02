@@ -18,6 +18,8 @@
 char	*id = "$Id$\n";
 #include "bench.h"
 
+#ifdef PORTMAP
+
 void	client_main(int ac, char **av);
 void	server_main();
 void	benchmark(iter_t iterations, void* _state);
@@ -280,3 +282,11 @@ xact_prog_1(rqstp, transp)
 	}
 	return;
 }
+
+#else
+int
+main(int ac, char **av)
+{
+	return -1;
+}
+#endif

@@ -155,9 +155,9 @@ set_realtime()
     struct sched_param sp;
 
     sp.sched_priority = sched_get_priority_max(SCHED_RR);
-    if (sched_setscheduler(0, SCHED_RR, &sp) >= 0) return TRUE;
+    if (sched_setscheduler(0, SCHED_RR, &sp) >= 0) return 1;
     perror("sched_setscheduler");
-    return FALSE;
+    return 0;
 }
 
 int
