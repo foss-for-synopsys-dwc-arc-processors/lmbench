@@ -216,7 +216,7 @@ OUTPUT="${OUTPUT:=/dev/tty}"
 MAIL=no
 
 echo ""
-echo "Confguration done, thanks."
+echo "Configuration done, thanks."
 
 VERSION=`../scripts/version`
 
