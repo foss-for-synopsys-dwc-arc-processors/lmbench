@@ -60,7 +60,7 @@ then	if [ "X$DISKS" != X ]
 	MP=Y
 fi
 
-NUM=`cat /proc/1/maps | grep ld-uClibc | wc -l`
+NUM=`cat /proc/1/maps | grep ld- | wc -l`
 if [ $NUM -eq 0 ]
 then
 	bbox_str="static"
