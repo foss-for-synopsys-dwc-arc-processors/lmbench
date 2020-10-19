@@ -923,6 +923,13 @@ EOF
     x86_64:Linux:*:*)
 	echo x86_64-unknown-linux-gnu
 	exit 0 ;;
+    arc:Linux:*:*)
+	if test -f /lib/ld-uClibc*so; then
+		echo arc-unknown-linux-uclibc
+	else
+		echo arc-snps-linux-gnu
+	fi
+	exit 0 ;;
     i*86:Linux:*:*)
 	# The BFD linker knows what the default object file format is, so
 	# first see if it will tell us. cd to the root directory to prevent
