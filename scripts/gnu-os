@@ -930,6 +930,9 @@ EOF
 		echo arc-snps-linux-gnu
 	fi
 	exit 0 ;;
+    aarch64:Linux:*:*)
+	echo ${UNAME_MACHINE}-unknown-linux-gnu
+	exit 0 ;;
     i*86:Linux:*:*)
 	# The BFD linker knows what the default object file format is, so
 	# first see if it will tell us. cd to the root directory to prevent
